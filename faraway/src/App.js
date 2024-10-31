@@ -24,7 +24,7 @@ function App() {
         onDeleteItem={handleDeleteItem}
         onHandleToggleItem={handleToggleItem}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
@@ -97,10 +97,16 @@ function Item({ item, onDeleteItem, onHandleToggleItem }) {
     </li>
   );
 }
-function Stats() {
+function Stats({ items }) {
+  const numItems = items.length;
+  const numPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((numPacked / numItems) * 100);
   return (
     <footer className="stats">
-      <em>you have x items on your list, and you already packed x (x%)</em>
+      <em>
+        you have {numItems} items on your list, and you already packed{" "}
+        {numPacked} ( packed {percentage}%)
+      </em>
     </footer>
   );
 }
